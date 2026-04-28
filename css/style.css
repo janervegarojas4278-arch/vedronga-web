@@ -1,0 +1,124 @@
+/* ====== Estilos generales ====== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+/* ====== Navbar ====== */
+.navbar-brand img {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+/* Efecto elegante en el logo */
+.navbar-brand img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2) drop-shadow(0 0 8px rgba(255,255,255,0.6));
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-link {
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #0d6efd !important; /* azul Bootstrap */
+}
+
+/* ====== Hero ====== */
+#hero {
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+              url('../img/img1.jpg') center/cover no-repeat;
+  color: #fff;
+  padding: 100px 20px;
+}
+
+#hero h1 {
+  font-size: 3rem;
+  font-weight: 700;
+}
+
+#hero p.lead {
+  font-size: 1.25rem;
+  margin-bottom: 20px;
+}
+
+/* ====== Servicios ====== */
+#servicios .card {
+  border: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#servicios .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+#servicios .card-title {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+/* ====== Portafolio ====== */
+#portafolio img {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+#portafolio img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+/* ====== Modales de imágenes ====== */
+.modal-body img {
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.7);
+}
+
+/* ====== Contacto ====== */
+#contacto form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+#contacto button {
+  transition: background-color 0.3s ease;
+}
+
+#contacto button:hover {
+  background-color: #0b5ed7;
+}
+
+/* ====== Documentos ====== */
+#documentos a.btn {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#documentos a.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* ====== Footer ====== */
+footer {
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+footer a {
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+footer a:hover {
+  color: #0d6efd;
+  transform: scale(1.2);
+}
