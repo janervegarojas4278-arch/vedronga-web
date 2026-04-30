@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "components/*.html", "use": "@vercel/static" },
+    { "src": "public/*", "use": "@vercel/static" }
+  ],
+  "routes": [
+    { "src": "/documentos", "dest": "/components/documentos.html" },
+    { "src": "/portafolio", "dest": "/components/portafolio.html" },
+    { "src": "/servicios", "dest": "/components/servicios.html" },
+    { "src": "/contacto", "dest": "/components/contacto.html" },
+    { "src": "/public/(.*)", "dest": "/public/$1" }
+  ]
+}
