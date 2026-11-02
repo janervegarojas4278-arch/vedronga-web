@@ -4,21 +4,15 @@ Esta carpeta prepara la primera etapa del backend de moderación. La migración 
 
 ## Estado actual
 
-La página publicada todavía usa `localStorage` e IndexedDB en cada navegador. La migración por sí sola no cambia la página ni activa la aprobación. Hace falta crear el proyecto de Supabase, ejecutar la migración e integrar autenticación, formularios y el panel de revisión en el sitio.
+La migración se ejecuta en el proyecto `VEDRONGA-Comunidad`. El sitio en `docs/` tiene el cliente de Supabase, autenticación, formularios, carga privada y una bandeja de aprobación. Esos cambios de código deben subirse a GitHub Pages para que el sitio publicado los use.
 
-## Configuración cuando se cree el proyecto
+## Pasos pendientes
 
-1. Crear un proyecto nuevo en Supabase.
-2. Abrir **SQL Editor** y ejecutar `migrations/202611020001_community_moderation.sql` una sola vez.
-3. Crear el usuario administrador en Supabase Auth y copiar su UUID.
-4. Ejecutar por separado, sustituyendo el marcador por ese UUID:
+1. En **Authentication > URL Configuration**, configurar el sitio como `https://janervegarojas4278-arch.github.io/vedronga-web/` y añadir esa misma dirección a **Redirect URLs** para la confirmación de correo.
+2. Verificar que el bucket `community-media` se mantenga privado.
+3. Subir a GitHub los cambios de `docs/` para actualizar GitHub Pages.
 
-   ```sql
-   insert into public.community_admins (user_id)
-   values ('PASTE_AUTH_USER_UUID_HERE');
-   ```
-
-5. Después conectar la página a Supabase Auth, tablas y Storage. No colocar una `service_role` o `secret` key en HTML, JavaScript público, GitHub ni en esta carpeta.
+La clave `sb_publishable_...` está en `docs/supabase-config.js`; puede estar en el código público porque las tablas y Storage usan RLS. Nunca pongas una `sb_secret_...` o `service_role` key en este archivo.
 
 ## Reglas de publicación que aplica la migración
 
@@ -26,7 +20,7 @@ La página publicada todavía usa `localStorage` e IndexedDB en cada navegador. 
 - Cada publicación y comentario nuevo entra como `pending`.
 - Los archivos se guardan en el bucket privado `community-media`; el acceso público solo se permite para archivos de publicaciones aprobadas.
 - Los reportes requieren una cuenta y solo el administrador puede revisarlos.
-- La aprobación es manual. Esta etapa no incluye detección automática de groserías, desnudos, violencia ni datos personales.
+- La aprobación es manual. No incluye detección automática de groserías, desnudos, violencia ni datos personales; el administrador debe revisar archivos y comentarios antes de aprobar.
 
 ## Límites del plan gratuito consultados el 2 de noviembre de 2026
 

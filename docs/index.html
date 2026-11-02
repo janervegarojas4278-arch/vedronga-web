@@ -7,6 +7,8 @@
   <meta name="description" content="VEDRONGA: fotografía y producción audiovisual con drones, y una comunidad para compartir desde el aire.">
   <title>VEDRONGA | Drones, historias y comunidad</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase-config.js"></script>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -20,6 +22,7 @@
         <div class="nav-account-actions">
           <button class="nav-account nav-login" type="button" id="openLogin">Ingresar</button>
           <button class="nav-account nav-register" type="button" id="openRegister">Crear cuenta</button>
+          <button class="nav-account" type="button" id="logoutButton" hidden>Cerrar sesión</button>
         </div>
       </nav>
     </div>
@@ -83,13 +86,19 @@
     <div class="eyebrow">UN ESPACIO PARA COMPARTIR</div>
     <h2>El cielo se ve mejor<br>cuando lo <em>compartimos.</em></h2>
     <p>Comparte tus fotografías y videos, cuenta lo que has aprendido y conversa con la comunidad VEDRONGA.</p>
+    <p class="community-policy">No se permiten insultos, pornografía, violencia ni datos o imágenes privadas compartidas sin autorización. Todo contenido nuevo se revisa antes de mostrarse.</p>
     <div class="community-rules"><span>▧ <b>Hasta 5 fotos</b></span><span>▷ <b>1 video de máximo 2 min</b></span></div>
   </div>
   <button class="button button-lime community-create" id="openPost"><span class="create-plus">＋</span> Publicar contenido <span>↗</span></button>
 </div>
       <div class="community-tools"><div><h3>Comunidad VEDRONGA</h3><span class="subtle">Ideas, lugares y experiencias desde el aire</span></div><div class="feed-filters" role="group" aria-label="Filtrar publicaciones"><button class="filter active" data-filter="all">Todas</button><button class="filter" data-filter="foto">Fotografía</button><button class="filter" data-filter="historia">Historias</button></div></div>
       <div class="feed-grid" id="feed" aria-live="polite"></div><p class="empty-state" id="emptyState" hidden>No hay publicaciones en esta categoría. ¡Anímate a compartir la primera!</p>
-      <p class="community-note">Prototipo local: el contenido se guarda en este navegador. Para compartirlo con otras personas y celulares conectaremos la comunidad a un servidor.</p>
+      <p class="community-note" id="communityStatus">Las publicaciones y comentarios nuevos pasan por revisión antes de mostrarse en la comunidad.</p>
+      <section class="moderation-panel" id="moderationPanel" hidden aria-labelledby="moderationTitle">
+        <div class="moderation-heading"><div><div class="eyebrow dark-eyebrow">SOLO ADMINISTRACIÓN</div><h3 id="moderationTitle">Revisión de la comunidad</h3><p>Aprueba únicamente contenido respetuoso y compartido con autorización.</p></div><button class="button button-dark" type="button" id="refreshModeration">Actualizar ↻</button></div>
+        <p class="moderation-message" id="moderationMessage" role="status" aria-live="polite"></p>
+        <div class="moderation-queue" id="moderationQueue"></div>
+      </section>
     </div></section>
 
     <section class="partners section-pad" id="aliados"><div class="page-width partner-layout"><div><div class="eyebrow dark-eyebrow">CRECEMOS EN EQUIPO</div><h2>¿Tienes un proyecto<br>o quieres ser <em>aliado?</em></h2></div><div><p>Buscamos conectar con empresas, creadores y profesionales que quieran desarrollar proyectos audiovisuales o sumar nuevas ideas.</p><a class="button button-dark" href="#contacto">Conversemos <span>↗</span></a></div></div></section>
@@ -190,9 +199,6 @@
     </div>
     <form id="loginForm" class="account-form">
       <p class="account-intro">Ingresa para participar en la comunidad VEDRONGA.</p>
-      <label>Tipo de acceso
-        <select name="role" required><option value="usuario">Usuario</option><option value="cliente">Cliente</option><option value="administrador">Administrador</option></select>
-      </label>
       <label>Correo electrónico<input type="email" name="email" placeholder="tu@correo.com" autocomplete="email" required></label>
       <label>Contraseña<input type="password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required></label>
       <button class="button button-dark account-submit" type="submit">Ingresar <span>↗</span></button>
@@ -223,13 +229,14 @@
     <label>Tipo de publicación<select name="category"><option value="foto">Fotografía</option><option value="historia">Historia</option></select></label>
     <div class="media-upload-heading"><strong>Agrega fotos o un video</strong><span>Los archivos son opcionales</span></div>
     <div class="upload-options">
-      <label class="upload-tile"><span class="upload-symbol">▧</span><span><b>Seleccionar fotos</b><small>Hasta 5 imágenes</small></span><input id="photoFiles" name="photos" type="file" accept="image/*" multiple></label>
-      <label class="upload-tile"><span class="upload-symbol">▷</span><span><b>Seleccionar video</b><small>1 video · máximo 2 min</small></span><input id="videoFile" name="video" type="file" accept="video/*"></label>
+      <label class="upload-tile"><span class="upload-symbol">▧</span><span><b>Seleccionar fotos</b><small>Hasta 5 imágenes</small></span><input id="photoFiles" name="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple></label>
+      <label class="upload-tile"><span class="upload-symbol">▷</span><span><b>Seleccionar video</b><small>1 video · 2 min · 50 MB</small></span><input id="videoFile" name="video" type="file" accept="video/mp4,video/webm"></label>
     </div>
     <div id="mediaPreview" class="media-preview" aria-live="polite"></div>
-    <p class="upload-hint">Puedes publicar hasta cinco fotos y un video. Verificaremos la duración del video antes de publicar.</p>
+    <p class="upload-hint">Puedes enviar hasta cinco fotos y un video. Todo queda pendiente de revisión antes de mostrarse.</p>
+    <label class="moderation-consent"><input type="checkbox" name="acceptRules" required> Confirmo que tengo permiso para compartir este contenido y que respeta las reglas de la comunidad.</label>
     <div class="form-error" id="formError" role="alert"></div>
-    <div class="dialog-actions"><span>Prototipo local: el contenido queda guardado en este navegador.</span><button class="button button-dark" type="submit">Publicar ↗</button></div>
+    <div class="dialog-actions"><span>Tu contenido se revisará antes de aparecer.</span><button class="button button-dark" type="submit">Enviar a revisión ↗</button></div>
   </form>
 </dialog>
 </body>

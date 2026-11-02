@@ -1,7 +1,3 @@
--- VEDRONGA: moderation-first community foundation
--- New posts, comments, and media stay private/pending until an admin approves them.
--- Run once in the Supabase SQL Editor after creating a new project.
-
 create table public.community_admins (
   user_id uuid primary key references auth.users(id) on delete cascade,
   created_at timestamptz not null default now()
@@ -180,7 +176,6 @@ on public.community_reports for update to authenticated
 using (public.is_community_admin())
 with check (public.is_community_admin());
 
--- Private bucket: pending media is not publicly accessible by URL.
 insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
 values (
   'community-media',
@@ -242,5 +237,3 @@ using (
   )
 );
 
--- Initial admin setup (run separately after registering the administrator account):
--- insert into public.community_admins (user_id) values ('PASTE_AUTH_USER_UUID_HERE');
