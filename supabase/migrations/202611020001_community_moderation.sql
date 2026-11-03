@@ -78,6 +78,7 @@ revoke all on public.community_posts, public.community_comments, public.communit
 from anon, authenticated;
 
 grant select on public.community_posts, public.community_comments, public.community_media to anon, authenticated;
+grant select on public.community_reports to authenticated;
 grant insert (user_id, author_name, title, body, category) on public.community_posts to authenticated;
 grant insert (post_id, user_id, author_name, body) on public.community_comments to authenticated;
 grant insert (post_id, user_id, storage_path, media_type, mime_type) on public.community_media to authenticated;
