@@ -427,6 +427,8 @@
 }
 .scene-left { left:18px; }
 .scene-right { right:18px; }
+/* Keep the hero eyebrow and heading clear of the fixed corner scene. */
+.hero-content { transform:translateY(42px); }
 .floating-drone-scene::after {
   content:"";
   position:absolute;
@@ -467,6 +469,7 @@
 @keyframes rotor-spin { to { rotate:360deg; } }
 @media(max-width:620px) {
   .floating-drone-scene { top:86px; width:92px; height:68px; border-radius:6px; }
+  .hero-content { transform:translateY(74px); }
   .scene-left { left:7px; }
   .scene-right { right:7px; }
   .scene-caption { left:5px; bottom:4px; font-size:5px; letter-spacing:.5px; }
