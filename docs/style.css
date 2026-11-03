@@ -409,3 +409,71 @@
   .account-card { padding:19px; }
   .account-heading h2 { font-size:22px; }
 }
+
+/* Decorative drone scenes stay in the viewport while the visitor scrolls. */
+.floating-drone-scene {
+  position:fixed;
+  z-index:8;
+  bottom:18px;
+  width:clamp(126px, 15vw, 188px);
+  height:112px;
+  overflow:hidden;
+  border:1px solid rgba(216,238,119,.72);
+  border-radius:8px;
+  background:var(--forest);
+  box-shadow:0 8px 26px rgba(14,29,21,.24);
+  isolation:isolate;
+  pointer-events:none;
+}
+.scene-left { left:18px; }
+.scene-right { right:18px; }
+.floating-drone-scene::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  background:linear-gradient(180deg,rgba(12,28,20,.12) 15%,rgba(12,28,20,.72) 100%);
+}
+.floating-drone-scene img { width:100%; height:100%; object-fit:cover; display:block; }
+.scene-caption {
+  position:absolute;
+  z-index:1;
+  left:9px;
+  bottom:7px;
+  color:#fff;
+  font-size:7px;
+  font-weight:800;
+  letter-spacing:1px;
+  text-shadow:0 1px 5px #102016;
+}
+.scene-drone {
+  position:absolute;
+  z-index:1;
+  top:13px;
+  left:31%;
+  width:66px;
+  overflow:visible;
+  color:var(--lime);
+  filter:drop-shadow(0 2px 3px rgba(0,0,0,.65));
+  animation:drone-hover 4.6s ease-in-out infinite alternate;
+}
+.scene-right .scene-drone { left:22%; animation-delay:-2.1s; animation-duration:5.2s; }
+.drone-frame { fill:var(--lime); stroke:#f8fff0; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+.drone-rotor { fill:none; stroke:var(--lime); stroke-width:2.5; transform-box:fill-box; transform-origin:center; animation:rotor-spin .32s linear infinite; }
+@keyframes drone-hover {
+  from { transform:translate(0,5px) rotate(-3deg); }
+  to { transform:translate(22px,-4px) rotate(3deg); }
+}
+@keyframes rotor-spin { to { rotate:360deg; } }
+@media(max-width:620px) {
+  .floating-drone-scene { bottom:calc(8px + env(safe-area-inset-bottom,0px)); width:92px; height:68px; border-radius:6px; }
+  .scene-left { left:7px; }
+  .scene-right { right:7px; }
+  .scene-caption { left:5px; bottom:4px; font-size:5px; letter-spacing:.5px; }
+  .scene-drone { top:5px; left:20%; width:44px; }
+  .scene-right .scene-drone { left:15%; }
+  @keyframes drone-hover { from { transform:translate(0,3px) rotate(-3deg); } to { transform:translate(12px,-3px) rotate(3deg); } }
+}
+@media(prefers-reduced-motion:reduce) {
+  .scene-drone,.drone-rotor { animation:none; }
+}
