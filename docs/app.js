@@ -399,6 +399,41 @@ async function refreshModerationQueue() {
 }
 
 document.getElementById("refreshModeration").addEventListener("click", refreshModerationQueue);
+const exportUsersButton = document.getElementById("exportUsers");
+const exportUsersMessage = document.getElementById("exportUsersMessage");
+function csvCell(value) {
+  let safe = String(value ?? "");
+  if (/^[=+\-@\t\r]/.test(safe)) safe = `'${safe}`;
+  return `"${safe.replaceAll('"', '""')}"`;
+}
+exportUsersButton.addEventListener("click", async () => {
+  if (!isAdmin || !currentUser || !db) return;
+  exportUsersButton.disabled = true;
+  exportUsersMessage.textContent = "Preparando el reporte…";
+  try {
+    const { data, error } = await db.rpc("admin_list_community_users");
+    if (error) throw error;
+    const columns = ["Nombre", "Correo electrónico", "Tipo de cuenta", "Fecha de registro", "Correo confirmado", "Último acceso", "UID"];
+    const rows = (data || []).map(user => [
+      user.display_name || "", user.email || "", user.account_type || "usuario",
+      user.created_at ? new Date(user.created_at).toLocaleString("es-CO") : "",
+      user.email_confirmed_at ? "Sí" : "No",
+      user.last_sign_in_at ? new Date(user.last_sign_in_at).toLocaleString("es-CO") : "Nunca",
+      user.user_id
+    ]);
+    const csv = "\ufeff" + [columns, ...rows].map(row => row.map(csvCell).join(";")).join("\r\n");
+    const url = URL.createObjectURL(new Blob([csv], { type: "text/csv;charset=utf-8" }));
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `vedronga-usuarios-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.append(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+    exportUsersMessage.textContent = `Reporte descargado: ${(data || []).length} cuentas. Puedes abrir el archivo CSV con Excel.`;
+  } catch (error) {
+    exportUsersMessage.textContent = friendlyError(error);
+  } finally {
+    exportUsersButton.disabled = false;
+  }
+});
 moderationQueue.addEventListener("click", async event => {
   const button = event.target.closest("[data-review]");
   if (!button || !isAdmin || !currentUser) return;

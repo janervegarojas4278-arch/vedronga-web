@@ -95,7 +95,8 @@
       <div class="feed-grid" id="feed" aria-live="polite"></div><p class="empty-state" id="emptyState" hidden>No hay publicaciones en esta categoría. ¡Anímate a compartir la primera!</p>
       <p class="community-note" id="communityStatus">Las publicaciones y comentarios nuevos pasan por revisión antes de mostrarse en la comunidad.</p>
       <section class="moderation-panel" id="moderationPanel" hidden aria-labelledby="moderationTitle">
-        <div class="moderation-heading"><div><div class="eyebrow dark-eyebrow">SOLO ADMINISTRACIÓN</div><h3 id="moderationTitle">Revisión de la comunidad</h3><p>Aprueba únicamente contenido respetuoso y compartido con autorización.</p></div><button class="button button-dark" type="button" id="refreshModeration">Actualizar ↻</button></div>
+        <div class="moderation-heading"><div><div class="eyebrow dark-eyebrow">SOLO ADMINISTRACIÓN</div><h3 id="moderationTitle">Revisión de la comunidad</h3><p>Aprueba únicamente contenido respetuoso y compartido con autorización.</p></div><div class="admin-tools"><button class="button button-outline" type="button" id="exportUsers">Descargar usuarios en Excel ↓</button><button class="button button-dark" type="button" id="refreshModeration">Actualizar ↻</button></div></div>
+        <p class="moderation-message" id="exportUsersMessage" role="status" aria-live="polite"></p>
         <p class="moderation-message" id="moderationMessage" role="status" aria-live="polite"></p>
         <div class="moderation-queue" id="moderationQueue"></div>
       </section>

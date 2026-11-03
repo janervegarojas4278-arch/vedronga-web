@@ -6,11 +6,14 @@ Esta carpeta prepara la primera etapa del backend de moderación. La migración 
 
 La migración se ejecuta en el proyecto `VEDRONGA-Comunidad`. El sitio en `docs/` tiene el cliente de Supabase, autenticación, formularios, carga privada y una bandeja de aprobación. Esos cambios de código deben subirse a GitHub Pages para que el sitio publicado los use.
 
+La migración `202611030001_admin_user_export.sql` crea el RPC `admin_list_community_users()`. Solo devuelve cuentas si el usuario de la sesión figura en `community_admins`; el sitio genera un CSV compatible con Excel. No expone claves de acceso ni contraseñas.
+
 ## Pasos pendientes
 
 1. En **Authentication > URL Configuration**, configurar el sitio como `https://janervegarojas4278-arch.github.io/vedronga-web/` y añadir esa misma dirección a **Redirect URLs** para la confirmación de correo.
 2. Verificar que el bucket `community-media` se mantenga privado.
 3. Subir a GitHub los cambios de `docs/` para actualizar GitHub Pages.
+4. En Supabase SQL Editor, ejecutar una vez el contenido de `migrations/202611030001_admin_user_export.sql` antes de usar **Descargar usuarios en Excel**.
 
 La clave `sb_publishable_...` está en `docs/supabase-config.js`; puede estar en el código público porque las tablas y Storage usan RLS. Nunca pongas una `sb_secret_...` o `service_role` key en este archivo.
 

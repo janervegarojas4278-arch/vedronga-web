@@ -366,6 +366,10 @@
 .moderation-consent { display:flex !important; align-items:flex-start; gap:8px; margin:12px 0 !important; color:#657268 !important; font-weight:500 !important; font-size:10px !important; }
 .moderation-consent input { margin:2px 0 0; }
 .moderation-heading { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; }
+.admin-tools { display:flex; flex-wrap:wrap; align-items:center; gap:8px; }
+.admin-tools .button-outline { border:1px solid #b9c5ba; background:transparent; color:var(--forest); }
+.admin-tools .button-outline:hover { background:#e9eee8; }
+.admin-tools button:disabled { opacity:.6; cursor:wait; }
 .moderation-heading h3 { margin:7px 0; color:var(--forest); font:500 26px Georgia,serif; }
 .moderation-heading p,.moderation-content p { color:#667369; font-size:12px; }
 .moderation-message { color:#53634f; font-size:12px; }
@@ -391,6 +395,7 @@
 @media(max-width:620px) {
   .moderation-panel { padding:16px; }
   .moderation-heading { flex-direction:column; }
+  .admin-tools { width:100%; }
   .moderation-heading h3 { font-size:22px; }
   .moderation-content { padding:13px; }
 }
