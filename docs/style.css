@@ -480,3 +480,29 @@
 @media(prefers-reduced-motion:reduce) {
   .scene-drone,.drone-rotor { animation:none; }
 }
+
+/* Portfolio is kept in two ordered groups: all photos first, then videos. */
+.portfolio-subheading {
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:20px;
+  margin:38px 0 15px;
+  padding-bottom:12px;
+  border-bottom:1px solid #ffffff2b;
+}
+.portfolio-subheading .eyebrow { color:var(--lime); font-size:9px; }
+.portfolio-subheading h3 { margin:6px 0 0; color:#fff; font:500 27px/1.1 Georgia,"Times New Roman",serif; }
+.portfolio-subheading h3 em { color:var(--lime); }
+.portfolio-subheading p { margin:0; color:#bdc7be; font-size:11px; }
+.portfolio-video-heading { margin-top:52px; }
+.portfolio-video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:270px; margin-bottom:10px; }
+.portfolio-video-grid .gallery-item { min-width:0; }
+@media(max-width:850px) {
+  .portfolio-video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:220px; }
+}
+@media(max-width:620px) {
+  .portfolio-subheading { align-items:flex-start; flex-direction:column; gap:6px; margin-top:30px; }
+  .portfolio-subheading h3 { font-size:23px; }
+  .portfolio-video-grid { grid-template-columns:1fr; grid-auto-rows:210px; }
+}

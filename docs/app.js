@@ -474,6 +474,7 @@ document.getElementById("mainNav").querySelectorAll("a").forEach(link => link.ad
 }));
 
 const gallery = document.querySelector(".gallery");
+const portfolioVideos = document.getElementById("portfolioVideos");
 const lightbox = document.getElementById("imageLightbox");
 const lightboxImage = document.getElementById("lightboxImage");
 const lightboxVideo = document.getElementById("lightboxVideo");
@@ -493,8 +494,13 @@ function openLightbox(media) {
   const figure = media.closest(".gallery-item"); lightboxCaption.textContent = figure?.querySelector("figcaption")?.innerText || media.alt || "Video";
   lightbox.showModal(); if (isVideo) lightboxVideo.play().catch(() => {});
 }
-gallery.addEventListener("click", event => { const figure = event.target.closest(".gallery-item"); const media = figure?.querySelector("video, img"); if (media) openLightbox(media); });
-gallery.addEventListener("keydown", event => { const figure = event.target.closest(".gallery-item"); if (figure && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); const media = figure.querySelector("video, img"); if (media) openLightbox(media); } });
+function enablePortfolioLightbox(container) {
+  if (!container) return;
+  container.addEventListener("click", event => { const figure = event.target.closest(".gallery-item"); const media = figure?.querySelector("video, img"); if (media) openLightbox(media); });
+  container.addEventListener("keydown", event => { const figure = event.target.closest(".gallery-item"); if (figure && (event.key === "Enter" || event.key === " ")) { event.preventDefault(); const media = figure.querySelector("video, img"); if (media) openLightbox(media); } });
+}
+enablePortfolioLightbox(gallery);
+enablePortfolioLightbox(portfolioVideos);
 zoomIn.addEventListener("click", () => setZoom(zoom + .25)); zoomOut.addEventListener("click", () => setZoom(zoom - .25));
 document.getElementById("zoomReset").addEventListener("click", resetZoom);
 lightboxImage.addEventListener("wheel", event => { event.preventDefault(); setZoom(zoom + (event.deltaY < 0 ? .2 : -.2)); }, { passive: false });

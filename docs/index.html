@@ -56,8 +56,10 @@
 
     <section class="portfolio section-pad" id="portafolio"><div class="page-width">
       <div class="section-heading"><div><div class="eyebrow">TRABAJO REAL · MIRADAS PROPIAS</div><h2>Un vistazo a nuestro <em>portafolio</em></h2></div><p>Algunos lugares y momentos capturados desde el aire.</p></div>
-      <div class="gallery">
-        <figure class="gallery-item gallery-large"><img src="img/img1.JPG" alt="Vista aérea de una población en el parque principal" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Vista aérea de una población en el parque principal"><figcaption><span>01 / Territorio</span><b>Otra forma de ver la belleza de nuestra tierra</b></figcaption></figure>
+      <div class="portfolio-subheading" id="portfolioPhotosHeading"><div><span class="eyebrow">01 / FOTOGRAFÍAS</span><h3>Imágenes desde <em>el aire</em></h3></div><p>Las fotos nuevas se agregan al final de esta cuadrícula.</p></div>
+      <!-- Para añadir fotografías: duplica una figura gallery-item y cambia src, alt y texto. Conserva el orden aquí. -->
+      <div class="gallery" id="portfolioPhotos" aria-labelledby="portfolioPhotosHeading">
+        <figure class="gallery-item"><img src="img/img1.JPG" alt="Vista aérea de una población en el parque principal" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Vista aérea de una población en el parque principal"><figcaption><span>01 / Territorio</span><b>Otra forma de ver la belleza de nuestra tierra</b></figcaption></figure>
         <figure class="gallery-item"><img src="img/img2.JPG" alt="Disfrutando la naturaleza entre colinas verdes" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Disfrutando la naturaleza entre colinas verdes"><figcaption><span>02 / Paisaje</span><b>Rutas que cuentan historias</b></figcaption></figure>
         <figure class="gallery-item"><img src="img/img3.JPG" alt="De visita por el campo" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: De visita por el campo"><figcaption><span>03 / Experiencias</span><b>Momentos para recordar</b></figcaption></figure>
        <figure class="gallery-item"><img src="img/img4.JPG" alt="Entre motañas nos encontramos lujosas casas" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Entre motañas nos encontramos lujosas casas"><figcaption><span>03 / Experiencias</span><b>Momentos para recordar</b></figcaption></figure>
@@ -65,6 +67,17 @@
       <figure class="gallery-item"><img src="img/img6.JPG" alt="Pueblos de colombia espectaculares" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Pueblos de colombia espectaculares"><figcaption><span>03 / Experiencias</span><b>Momentos para recordar</b></figcaption></figure>
       <figure class="gallery-item"><img src="img/img7.JPG" alt="Pueblos de colombia espectaculares a visitar" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Pueblos de colombia espectaculares a visitar"><figcaption><span>03 / Experiencias</span><b>Momentos para recordar</b></figcaption></figure>
       <figure class="gallery-item"><img src="img/img8.JPG" alt="Paisajes maravisollos de colombia" loading="lazy" tabindex="0" role="button" aria-label="Ampliar fotografía: Paisajes maravisollos de colombia"><figcaption><span>03 / Experiencias</span><b>Momentos para recordar</b></figcaption></figure>
+      </div>
+      <div class="portfolio-subheading portfolio-video-heading" id="portfolioVideosHeading"><div><span class="eyebrow">02 / VIDEOS</span><h3>Colombia en <em>movimiento</em></h3></div><p>Selecciona una portada para reproducir el vuelo.</p></div>
+      <div class="gallery portfolio-video-grid" id="portfolioVideos" aria-labelledby="portfolioVideosHeading">
+        <figure class="gallery-item gallery-video" tabindex="0" role="button" aria-label="Reproducir video: Recorrido aéreo por el territorio">
+          <video src="videos/video1.mp4" poster="videos/video1-poster.jpg" muted playsinline preload="none" tabindex="-1" aria-hidden="true"></video><span class="video-play-icon">▶</span>
+          <figcaption><span>01 / VUELO AÉREO</span><b>Recorrido por el territorio</b></figcaption>
+        </figure>
+        <figure class="gallery-item gallery-video" tabindex="0" role="button" aria-label="Reproducir video: Paisaje y encuentro desde el aire">
+          <video src="videos/video2.mp4" poster="videos/video2-poster.jpg" muted playsinline preload="none" tabindex="-1" aria-hidden="true"></video><span class="video-play-icon">▶</span>
+          <figcaption><span>02 / PAISAJE</span><b>Un encuentro desde el aire</b></figcaption>
+        </figure>
       </div>
     </div></section>
 
