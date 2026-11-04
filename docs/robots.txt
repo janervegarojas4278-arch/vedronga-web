@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://janervegarojas4278-arch.github.io/vedronga-web/sitemap.xml
