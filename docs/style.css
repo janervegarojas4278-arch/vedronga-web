@@ -496,13 +496,13 @@
 .portfolio-subheading h3 em { color:var(--lime); }
 .portfolio-subheading p { margin:0; color:#bdc7be; font-size:11px; }
 .portfolio-video-heading { margin-top:52px; }
-.portfolio-video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:270px; margin-bottom:10px; }
+.portfolio-video-grid { grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:175px; margin-bottom:10px; }
 .portfolio-video-grid .gallery-item { min-width:0; }
 @media(max-width:850px) {
-  .portfolio-video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:220px; }
+  .portfolio-video-grid { grid-template-columns:repeat(3,minmax(0,1fr)); grid-auto-rows:165px; }
 }
 @media(max-width:620px) {
   .portfolio-subheading { align-items:flex-start; flex-direction:column; gap:6px; margin-top:30px; }
   .portfolio-subheading h3 { font-size:23px; }
-  .portfolio-video-grid { grid-template-columns:1fr; grid-auto-rows:210px; }
+  .portfolio-video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:135px; }
 }
