@@ -532,10 +532,35 @@
 .quote-result pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; color:#33443a; font:12px/1.7 ui-monospace,monospace; }
 .quote-result a[hidden] { display:none; }
 .account-link { display:block; margin:11px auto 0; padding:5px; border:0; background:transparent; color:var(--green); font-size:11px; font-weight:700; text-decoration:underline; }
+.company { background:#e9ebe3; }
+.company .section-heading { margin-bottom:28px; }
+.company .section-heading h2 { font-size:clamp(38px,4.5vw,55px); }
+.company .section-heading p { max-width:290px; color:#69766d; font-size:12px; line-height:1.75; }
+.company-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:13px; }
+.company-card { position:relative; min-height:255px; padding:25px; border:1px solid #dce2d8; background:#f8f8f4; }
+.company-card-featured { border-color:var(--forest); background:var(--forest); color:#fff; }
+.company-index { color:#718071; font-size:9px; font-weight:800; letter-spacing:1.3px; }
+.company-card-featured .company-index { color:var(--lime); }
+.company-card h3 { margin:32px 0 10px; color:var(--forest); font:500 24px Georgia,serif; }
+.company-card-featured h3 { color:#fff; }
+.company-card p { margin:0; color:#68766c; font-size:12px; line-height:1.8; }
+.company-card-featured p { color:#c8d2ca; }
+.company-principles { margin-top:38px; padding:27px; border:1px solid #d5ddd2; background:#f4f5ef; }
+.principles-heading h3 { margin:7px 0 20px; color:var(--forest); font:500 25px Georgia,serif; }
+.principles-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:18px; }
+.principles-grid article { border-top:2px solid var(--lime); padding-top:12px; }
+.principles-grid h4 { margin:0 0 7px; color:var(--forest); font-size:12px; }
+.principles-grid p { margin:0; color:#69766d; font-size:11px; line-height:1.75; }
 @media(max-width:850px) { .responsible-layout { gap:35px; } }
 @media(max-width:620px) {
   .responsible-layout { grid-template-columns:1fr; gap:18px; }
   .responsible h2 { font-size:40px; }
+  .company .section-heading h2 { font-size:42px; }
+  .company-grid,.principles-grid { grid-template-columns:1fr; }
+  .company-card { min-height:0; padding:21px; }
+  .company-card h3 { margin-top:22px; }
+  .company-principles { padding:20px; }
+  .principles-grid { gap:15px; }
   .quote-builder { padding:16px; }
   .quote-form { grid-template-columns:1fr; }
   .quote-form label,.quote-file-list,.quote-actions { grid-column:1; }
