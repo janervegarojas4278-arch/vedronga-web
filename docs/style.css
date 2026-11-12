@@ -531,6 +531,7 @@
 .quote-result h4 { margin:0 0 9px; color:var(--forest); font:500 20px Georgia,serif; }
 .quote-result pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; color:#33443a; font:12px/1.7 ui-monospace,monospace; }
 .quote-result a[hidden] { display:none; }
+.account-link { display:block; margin:11px auto 0; padding:5px; border:0; background:transparent; color:var(--green); font-size:11px; font-weight:700; text-decoration:underline; }
 @media(max-width:850px) { .responsible-layout { gap:35px; } }
 @media(max-width:620px) {
   .responsible-layout { grid-template-columns:1fr; gap:18px; }

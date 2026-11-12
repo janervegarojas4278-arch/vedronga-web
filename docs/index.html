@@ -275,7 +275,7 @@
       <div><div class="eyebrow dark-eyebrow">COMUNIDAD VEDRONGA</div><h2 id="accountTitle">Tu espacio empieza aquí</h2></div>
       <button class="dialog-close" type="button" id="closeAccount" aria-label="Cerrar">×</button>
     </div>
-    <div class="account-tabs" role="tablist" aria-label="Acceso a la comunidad">
+    <div class="account-tabs" id="accountTabs" role="tablist" aria-label="Acceso a la comunidad">
       <button class="account-tab active" id="tabLogin" type="button" role="tab" aria-selected="true">Ingresar</button>
       <button class="account-tab" id="tabRegister" type="button" role="tab" aria-selected="false">Crear cuenta</button>
     </div>
@@ -284,6 +284,7 @@
       <label>Correo electrónico<input type="email" name="email" placeholder="tu@correo.com" autocomplete="email" required></label>
       <label>Contraseña<input type="password" name="password" placeholder="Tu contraseña" autocomplete="current-password" required></label>
       <button class="button button-dark account-submit" type="submit">Ingresar <span>↗</span></button>
+      <button class="account-link" id="forgotPassword" type="button">Olvidé mi contraseña</button>
     </form>
     <form id="registerForm" class="account-form" hidden>
       <p class="account-intro">Crea tu perfil para compartir fotos, videos e ideas.</p>
@@ -294,6 +295,18 @@
       </label>
       <label>Crear contraseña<input type="password" name="password" minlength="8" placeholder="Mínimo 8 caracteres" autocomplete="new-password" required></label>
       <button class="button button-dark account-submit" type="submit">Crear cuenta <span>↗</span></button>
+    </form>
+    <form id="recoveryForm" class="account-form" hidden>
+      <p class="account-intro">Te enviaremos un enlace para restablecer la contraseña de tu cuenta.</p>
+      <label>Correo electrónico<input type="email" name="email" placeholder="tu@correo.com" autocomplete="email" required></label>
+      <button class="button button-dark account-submit" type="submit">Enviar enlace de recuperación <span>↗</span></button>
+      <button class="account-link" id="backToLogin" type="button">Volver a ingresar</button>
+    </form>
+    <form id="newPasswordForm" class="account-form" hidden>
+      <p class="account-intro">Elige una contraseña nueva de al menos 8 caracteres.</p>
+      <label>Nueva contraseña<input type="password" name="password" minlength="8" autocomplete="new-password" required></label>
+      <label>Confirma la nueva contraseña<input type="password" name="confirmPassword" minlength="8" autocomplete="new-password" required></label>
+      <button class="button button-dark account-submit" type="submit">Guardar contraseña <span>↗</span></button>
     </form>
     <p class="account-message" id="accountMessage" role="status" aria-live="polite">Ingresa o crea una cuenta para participar. Las publicaciones se revisan antes de mostrarse.</p>
     <p class="account-admin-note">El acceso de administrador se asignará de forma privada; no se crea desde el registro público.</p>

@@ -112,9 +112,12 @@ const feed = document.getElementById("feed");
 const accountDialog = document.getElementById("accountDialog");
 const loginForm = document.getElementById("loginForm");
 const registerForm = document.getElementById("registerForm");
+const recoveryForm = document.getElementById("recoveryForm");
+const newPasswordForm = document.getElementById("newPasswordForm");
 const accountMessage = document.getElementById("accountMessage");
 const loginTab = document.getElementById("tabLogin");
 const registerTab = document.getElementById("tabRegister");
+const accountTabs = document.getElementById("accountTabs");
 const openLoginButton = document.getElementById("openLogin");
 const openRegisterButton = document.getElementById("openRegister");
 const logoutButton = document.getElementById("logoutButton");
@@ -124,13 +127,20 @@ const moderationMessage = document.getElementById("moderationMessage");
 
 function setAccountMode(mode) {
   const isLogin = mode === "login";
+  const isRegister = mode === "register";
+  const isRecovery = mode === "recovery";
+  const isNewPassword = mode === "newPassword";
   loginForm.hidden = !isLogin;
-  registerForm.hidden = isLogin;
+  registerForm.hidden = !isRegister;
+  recoveryForm.hidden = !isRecovery;
+  newPasswordForm.hidden = !isNewPassword;
+  accountTabs.hidden = isRecovery || isNewPassword;
   loginTab.classList.toggle("active", isLogin);
-  registerTab.classList.toggle("active", !isLogin);
+  registerTab.classList.toggle("active", isRegister);
   loginTab.setAttribute("aria-selected", String(isLogin));
-  registerTab.setAttribute("aria-selected", String(!isLogin));
-  accountMessage.textContent = isLogin ? "Ingresa para comentar y enviar contenido a revisión." : "Tu cuenta te permitirá participar en la comunidad. Las publicaciones se revisan antes de mostrarse.";
+  registerTab.setAttribute("aria-selected", String(isRegister));
+  document.getElementById("accountTitle").textContent = isRecovery ? "Recupera tu cuenta" : isNewPassword ? "Crea una contraseña nueva" : "Tu espacio empieza aquí";
+  accountMessage.textContent = isLogin ? "Ingresa para comentar y enviar contenido a revisión." : isRegister ? "Tu cuenta te permitirá participar en la comunidad. Las publicaciones se revisan antes de mostrarse." : "";
 }
 
 async function updateSignedInState(user) {
@@ -158,7 +168,13 @@ async function updateSignedInState(user) {
 
 if (db) {
   db.auth.getSession().then(({ data }) => updateSignedInState(data.session?.user || null));
-  db.auth.onAuthStateChange((_event, session) => setTimeout(() => updateSignedInState(session?.user || null), 0));
+  db.auth.onAuthStateChange((event, session) => setTimeout(() => {
+    updateSignedInState(session?.user || null);
+    if (event === "PASSWORD_RECOVERY") {
+      setAccountMode("newPassword");
+      accountDialog.showModal();
+    }
+  }, 0));
 } else {
   setCommunityStatus("No se pudo iniciar Supabase. Revisa el archivo de configuración de la página.");
 }
@@ -170,6 +186,11 @@ document.getElementById("openLogin").addEventListener("click", () => {
 document.getElementById("openRegister").addEventListener("click", () => { setAccountMode("register"); accountDialog.showModal(); });
 loginTab.addEventListener("click", () => setAccountMode("login"));
 registerTab.addEventListener("click", () => setAccountMode("register"));
+document.getElementById("forgotPassword").addEventListener("click", () => {
+  recoveryForm.elements.email.value = loginForm.elements.email.value.trim();
+  setAccountMode("recovery");
+});
+document.getElementById("backToLogin").addEventListener("click", () => setAccountMode("login"));
 document.getElementById("closeAccount").addEventListener("click", () => accountDialog.close());
 accountDialog.addEventListener("click", event => { if (event.target === accountDialog) accountDialog.close(); });
 
@@ -181,6 +202,28 @@ loginForm.addEventListener("submit", async event => {
   const { error } = await db.auth.signInWithPassword({ email, password });
   accountMessage.textContent = error ? friendlyError(error) : "Ingresaste correctamente.";
   if (!error) setTimeout(() => accountDialog.close(), 600);
+});
+
+recoveryForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!db) { accountMessage.textContent = "La conexión con el servidor no está configurada."; return; }
+  const email = recoveryForm.elements.email.value.trim();
+  const redirectTo = `${window.location.origin}${window.location.pathname}`;
+  const { error } = await db.auth.resetPasswordForEmail(email, { redirectTo });
+  accountMessage.textContent = error
+    ? friendlyError(error)
+    : "Si ese correo tiene una cuenta, recibirás un enlace para cambiar la contraseña. Revisa también Spam o Correo no deseado.";
+});
+
+newPasswordForm.addEventListener("submit", async event => {
+  event.preventDefault();
+  if (!db) { accountMessage.textContent = "La conexión con el servidor no está configurada."; return; }
+  const password = newPasswordForm.elements.password.value;
+  const confirmPassword = newPasswordForm.elements.confirmPassword.value;
+  if (password !== confirmPassword) { accountMessage.textContent = "Las contraseñas no coinciden. Revísalas e intenta otra vez."; return; }
+  const { error } = await db.auth.updateUser({ password });
+  accountMessage.textContent = error ? friendlyError(error) : "Contraseña actualizada. Ya puedes ingresar con la nueva contraseña.";
+  if (!error) setTimeout(() => { accountDialog.close(); setAccountMode("login"); }, 1800);
 });
 
 registerForm.addEventListener("submit", async event => {
