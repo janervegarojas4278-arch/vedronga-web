@@ -506,3 +506,36 @@
   .portfolio-subheading h3 { font-size:23px; }
   .portfolio-video-grid { grid-template-columns:repeat(2,minmax(0,1fr)); grid-auto-rows:135px; }
 }
+
+.responsible { background:#f8f8f4; }
+.responsible-layout { display:grid; grid-template-columns:.8fr 1fr; gap:70px; align-items:center; }
+.responsible h2 { margin:14px 0 0; color:var(--forest); font:500 clamp(36px,4vw,52px)/1.05 Georgia,serif; letter-spacing:-1.5px; }
+.responsible h2 em { color:var(--green); font-weight:400; }
+.responsible-copy p { color:#657268; font-size:13px; line-height:1.8; margin:0 0 13px; }
+.responsible-copy .text-link { display:inline-block; margin-top:6px; }
+.quote-builder { margin-top:28px; padding:23px; border:1px solid #cbd5c7; background:#f8faf6; }
+.quote-heading h3 { margin:7px 0; color:var(--forest); font:500 26px Georgia,serif; }
+.quote-heading p,.quote-result p { color:#667369; font-size:12px; line-height:1.7; }
+.quote-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:5px 14px; margin-top:16px; }
+.quote-form label { display:block; margin:7px 0; color:#455248; font-size:11px; font-weight:750; }
+.quote-form input,.quote-form textarea { display:block; width:100%; margin-top:5px; border:1px solid #d5ddd3; border-radius:4px; padding:10px; background:white; color:var(--ink); font-size:12px; }
+.quote-form textarea { resize:vertical; }
+.quote-form .quote-files,.quote-file-list,.quote-actions { grid-column:1/-1; }
+.quote-files span { color:#78847b; font-weight:400; }
+.quote-files input { padding:9px; }
+.quote-file-list { margin:0; color:#667369; font-size:11px; overflow-wrap:anywhere; }
+.quote-actions { display:flex; flex-wrap:wrap; align-items:center; gap:9px; margin-top:8px; }
+.quote-actions .button-outline { border:1px solid #b9c5ba; background:transparent; color:var(--forest); }
+.quote-actions button:disabled { opacity:.55; cursor:not-allowed; }
+.quote-result { margin-top:20px; padding:16px; border-left:3px solid var(--green); background:#edf2e9; }
+.quote-result h4 { margin:0 0 9px; color:var(--forest); font:500 20px Georgia,serif; }
+.quote-result pre { margin:0; white-space:pre-wrap; overflow-wrap:anywhere; color:#33443a; font:12px/1.7 ui-monospace,monospace; }
+.quote-result a[hidden] { display:none; }
+@media(max-width:850px) { .responsible-layout { gap:35px; } }
+@media(max-width:620px) {
+  .responsible-layout { grid-template-columns:1fr; gap:18px; }
+  .responsible h2 { font-size:40px; }
+  .quote-builder { padding:16px; }
+  .quote-form { grid-template-columns:1fr; }
+  .quote-form label,.quote-file-list,.quote-actions { grid-column:1; }
+}

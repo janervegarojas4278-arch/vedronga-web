@@ -94,6 +94,13 @@
       </div>
     </div></section>
 
+    <section class="responsible section-pad" id="operacion-responsable" aria-labelledby="responsibleTitle">
+      <div class="page-width responsible-layout">
+        <div><div class="eyebrow dark-eyebrow">CUIDADO EN CADA VUELO</div><h2 id="responsibleTitle">Operación <em>responsable</em></h2></div>
+        <div class="responsible-copy"><p>Planificamos cada proyecto con atención a la seguridad, el respeto por la privacidad y el cuidado de las personas y del entorno. Antes de cada servicio revisamos las condiciones del lugar y los requisitos aplicables a la operación.</p><p>Cuando un cliente lo solicite, podemos compartir de forma privada la documentación pertinente para el servicio y el equipo utilizado.</p><a class="text-link dark-link" href="#contacto">Solicitar información sobre un servicio ↗</a></div>
+      </div>
+    </section>
+
     <section class="portfolio section-pad" id="portafolio"><div class="page-width">
       <div class="section-heading"><div><div class="eyebrow">TRABAJO REAL · MIRADAS PROPIAS</div><h2>Un vistazo a nuestro <em>portafolio</em></h2></div><p>Algunos lugares y momentos capturados desde el aire.</p></div>
       <div class="portfolio-subheading" id="portfolioPhotosHeading"><div><span class="eyebrow">01 / FOTOGRAFÍAS</span><h3>Imágenes desde <em>el aire</em></h3></div><p>Las fotos nuevas se agregan al final de esta cuadrícula.</p></div>
@@ -152,6 +159,27 @@
         <p class="moderation-message" id="exportUsersMessage" role="status" aria-live="polite"></p>
         <p class="moderation-message" id="moderationMessage" role="status" aria-live="polite"></p>
         <div class="moderation-queue" id="moderationQueue"></div>
+        <section class="quote-builder" aria-labelledby="quoteTitle">
+          <div class="quote-heading"><div><div class="eyebrow dark-eyebrow">SOLO ADMINISTRACIÓN</div><h3 id="quoteTitle">Preparar cotización</h3><p>Completa los datos, elige los PDF de tu carpeta y prepara el mensaje para el cliente. Adjunta solo documentos vigentes y pertinentes; revisa y oculta datos personales antes de compartirlos.</p></div></div>
+          <form id="quoteForm" class="quote-form">
+            <label>Nombre del cliente<input name="clientName" autocomplete="name" required></label>
+            <label>Correo del cliente<input name="clientEmail" type="email" autocomplete="email"></label>
+            <label>WhatsApp del cliente<input name="clientPhone" type="tel" autocomplete="tel" placeholder="Incluye el indicativo, ej. +57 300 123 4567"></label>
+            <label>Servicio solicitado<input name="service" required placeholder="Fotografía aérea, evento…"></label>
+            <label>Lugar y fecha del servicio<input name="schedule" placeholder="Municipio, dirección y fecha tentativa"></label>
+            <label>Descripción y alcance<textarea name="details" rows="3" placeholder="Qué incluye el servicio, duración, entregables…"></textarea></label>
+            <label>Valor de la cotización (COP)<input name="price" inputmode="numeric" placeholder="Ej. 850000"></label>
+            <label>Vigencia de la oferta<input name="validity" placeholder="Ej. 15 días"></label>
+            <label class="quote-files">Documentos PDF para anexar <span>(se quedan en este dispositivo)</span><input id="quoteFiles" name="documents" type="file" accept="application/pdf,.pdf" multiple></label>
+            <p class="quote-file-list" id="quoteFileList" aria-live="polite">Aún no has seleccionado documentos.</p>
+            <div class="quote-actions"><button class="button button-lime" type="submit">Preparar borrador ↗</button><button class="button button-outline" id="downloadQuote" type="button" disabled>Descargar borrador para imprimir ↓</button></div>
+          </form>
+          <div class="quote-result" id="quoteResult" hidden>
+            <h4>Borrador listo</h4><pre id="quotePreview"></pre>
+            <p>Antes de enviar, revisa el mensaje y adjunta manualmente los PDF seleccionados. WhatsApp y el correo no permiten adjuntar archivos desde este botón.</p>
+            <div class="quote-actions"><a class="button button-dark" id="quoteWhatsApp" target="_blank" rel="noopener noreferrer">Abrir WhatsApp ↗</a><a class="button button-outline" id="quoteEmail">Abrir correo ↗</a></div>
+          </div>
+        </section>
       </section>
     </div></section>
 

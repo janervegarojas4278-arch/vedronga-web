@@ -399,6 +399,79 @@ async function refreshModerationQueue() {
 }
 
 document.getElementById("refreshModeration").addEventListener("click", refreshModerationQueue);
+
+const quoteForm = document.getElementById("quoteForm");
+const quoteFiles = document.getElementById("quoteFiles");
+const quoteFileList = document.getElementById("quoteFileList");
+const quoteResult = document.getElementById("quoteResult");
+const quotePreview = document.getElementById("quotePreview");
+const quoteWhatsApp = document.getElementById("quoteWhatsApp");
+const quoteEmail = document.getElementById("quoteEmail");
+const downloadQuoteButton = document.getElementById("downloadQuote");
+let latestQuoteText = "";
+
+quoteFiles.addEventListener("change", () => {
+  const selected = [...quoteFiles.files];
+  const pdfs = selected.filter(file => file.type === "application/pdf" || file.name.toLowerCase().endsWith(".pdf"));
+  if (pdfs.length !== selected.length) {
+    quoteFileList.textContent = "Selecciona únicamente archivos PDF. Vuelve a elegir los documentos.";
+    quoteFiles.value = "";
+    return;
+  }
+  quoteFileList.textContent = pdfs.length ? `PDF seleccionados: ${pdfs.map(file => file.name).join(", ")}` : "Aún no has seleccionado documentos.";
+});
+
+quoteForm.addEventListener("submit", event => {
+  event.preventDefault();
+  if (!isAdmin || !currentUser) return;
+  const form = new FormData(quoteForm);
+  const name = String(form.get("clientName") || "").trim();
+  const email = String(form.get("clientEmail") || "").trim();
+  const phone = String(form.get("clientPhone") || "").trim();
+  if (!email && !phone) {
+    quoteResult.hidden = false;
+    quotePreview.textContent = "Escribe el correo o el WhatsApp del cliente para preparar el envío.";
+    return;
+  }
+  const service = String(form.get("service") || "").trim();
+  const schedule = String(form.get("schedule") || "").trim();
+  const details = String(form.get("details") || "").trim();
+  const rawPrice = String(form.get("price") || "").trim();
+  const priceNumber = Number(rawPrice.replace(/[^0-9]/g, ""));
+  const price = rawPrice ? (priceNumber ? priceNumber.toLocaleString("es-CO", { style: "currency", currency: "COP", maximumFractionDigits: 0 }) : rawPrice) : "Por definir";
+  const validity = String(form.get("validity") || "").trim();
+  const docs = [...quoteFiles.files].map(file => file.name);
+  latestQuoteText = [
+    `Hola ${name}, te comparto la cotización de VEDRONGA.`, "",
+    `Servicio: ${service}`,
+    schedule ? `Lugar y fecha: ${schedule}` : "",
+    details ? `Alcance: ${details}` : "",
+    `Valor: ${price}`,
+    validity ? `Vigencia: ${validity}` : "",
+    docs.length ? `Documentos que adjuntaré: ${docs.join(", ")}` : "",
+    "", "Quedo atento a tus comentarios.", "Janer Vega · VEDRONGA"
+  ].filter(Boolean).join("\n");
+  quotePreview.textContent = latestQuoteText;
+  quoteResult.hidden = false;
+  const encodedMessage = encodeURIComponent(latestQuoteText);
+  let phoneDigits = phone.replace(/\D/g, "");
+  if (phoneDigits.length === 10 && phoneDigits.startsWith("3")) phoneDigits = `57${phoneDigits}`;
+  quoteWhatsApp.hidden = !phoneDigits;
+  if (phoneDigits) quoteWhatsApp.href = `https://wa.me/${phoneDigits}?text=${encodedMessage}`;
+  quoteEmail.hidden = !email;
+  if (email) quoteEmail.href = `mailto:${email}?subject=${encodeURIComponent(`Cotización VEDRONGA · ${service}`)}&body=${encodedMessage}`;
+  downloadQuoteButton.disabled = false;
+});
+
+downloadQuoteButton.addEventListener("click", () => {
+  if (!isAdmin || !latestQuoteText) return;
+  const printable = `<!doctype html><html lang="es"><meta charset="utf-8"><title>Cotización VEDRONGA</title><style>body{font:16px/1.6 Arial,sans-serif;max-width:760px;margin:50px auto;color:#17271f}h1{font:32px Georgia,serif}pre{white-space:pre-wrap;font:16px/1.7 Arial,sans-serif}button{padding:10px 16px}@media print{button{display:none}body{margin:20mm}}</style><body><button onclick="window.print()">Imprimir o guardar como PDF</button><h1>VEDRONGA · Cotización</h1><pre>${escapeHTML(latestQuoteText)}</pre></body></html>`;
+  const url = URL.createObjectURL(new Blob([printable], { type: "text/html;charset=utf-8" }));
+  const link = document.createElement("a");
+  link.href = url; link.download = `cotizacion-vedronga-${new Date().toISOString().slice(0, 10)}.html`;
+  document.body.append(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+});
+
 const exportUsersButton = document.getElementById("exportUsers");
 const exportUsersMessage = document.getElementById("exportUsersMessage");
 function csvCell(value) {
